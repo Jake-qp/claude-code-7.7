@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+vendor/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+target/
+
+# Environment
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+coverage/
+.nyc_output/
+*.lcov
+
+# Claude Code V7.3
+# Keep these tracked:
+# - .log (execution history)
+# - .tasks (task queue)
+# - SCRATCHPAD.md (progress)
+# - .spec (current spec)
+
+# Ignore state (auto-generated)
+.claude/state/phase
+
+# Optional: ignore issues if you prefer
+# .issues
