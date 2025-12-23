@@ -1,0 +1,15 @@
+# Execution Log
+
+## 2024-12-23 fix: Plan name shows as undefined on upgrade page
+
+- **Root cause:** Components passed undefined planId directly to getPlanById(), which returns undefined. This undefined value was rendered as text "undefined" in the UI when users had no subscription.
+- **Solution:** Added two new helper functions:
+  - `getDisplayPlanName(planId)` - Returns "Free" for undefined/null/unknown planIds
+  - `getPlanOrDefault(planId)` - Returns Free plan object for undefined/null/unknown planIds
+  - Updated UpgradePage.tsx and BillingOverview.tsx to use getPlanOrDefault()
+- **Files changed:**
+  - src/lib/plans.ts (added helper functions)
+  - src/components/UpgradePage.tsx (use getPlanOrDefault)
+  - src/components/BillingOverview.tsx (use getPlanOrDefault)
+  - tests/plan-display.test.ts (added verification tests)
+- **Tests:** 19 passing
