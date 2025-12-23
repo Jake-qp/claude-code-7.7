@@ -1,0 +1,36 @@
+{
+  "features": [
+    {
+      "id": "db-schema",
+      "name": "Database Schema",
+      "description": "Create tables for plans, subscriptions, invoices, payment_methods",
+      "status": "pending"
+    },
+    {
+      "id": "auth",
+      "name": "User Authentication",
+      "description": "Email/password login and signup with Supabase Auth",
+      "status": "pending"
+    },
+    {
+      "id": "ui-system",
+      "name": "UI Design System",
+      "description": "Dashboard layout with sidebar navigation",
+      "status": "pending"
+    },
+    {
+      "id": "stripe-integration",
+      "name": "Stripe Integration",
+      "description": "Invoice viewing and payment method updates",
+      "status": "pending"
+    },
+    {
+      "id": "plan-api",
+      "name": "Plan Management API",
+      "description": "Endpoints for listing and changing plans",
+      "status": "pending"
+    }
+  ],
+  "current": null,
+  "completed": []
+}
