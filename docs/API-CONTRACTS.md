@@ -131,6 +131,93 @@ stripe-signature: t=...,v1=...,v0=...
 
 ---
 
+### GET /api/plans
+
+List all available subscription plans.
+
+**Authentication:** Not required (public endpoint)
+
+**Response:**
+
+```json
+{
+  "data": [
+    {
+      "id": "plan_starter",
+      "name": "Starter",
+      "description": "Perfect for small businesses",
+      "price_cents": 900,
+      "currency": "usd",
+      "interval": "month",
+      "stripe_price_id": "price_starter_monthly",
+      "features": ["Up to 5 team members", "Basic analytics", "Email support"],
+      "is_active": true
+    }
+  ]
+}
+```
+
+**Notes:**
+
+- Only returns active plans (is_active = true)
+- Plans are sorted by price ascending
+
+---
+
+### POST /api/subscriptions/change
+
+Change subscription to a different plan (upgrade/downgrade).
+
+**Authentication:** Required
+
+**Request Body:**
+
+```json
+{
+  "priceId": "price_pro_monthly",
+  "subscriptionId": "sub_xxxxx"
+}
+```
+
+| Field          | Type   | Required | Description                                     |
+| -------------- | ------ | -------- | ----------------------------------------------- |
+| priceId        | string | Yes      | Stripe Price ID for the new plan                |
+| subscriptionId | string | No       | Existing subscription ID (if null, creates new) |
+
+**Response (new subscription):**
+
+```json
+{
+  "url": "https://checkout.stripe.com/c/pay/..."
+}
+```
+
+**Response (plan change):**
+
+```json
+{
+  "data": {
+    "subscriptionId": "sub_xxxxx",
+    "status": "active",
+    "currentPeriodEnd": "2024-02-01T00:00:00Z"
+  }
+}
+```
+
+**Errors:**
+
+- 400: Missing or invalid price ID
+- 401: Not authenticated
+- 404: Subscription not found
+- 500: Failed to change subscription
+
+**Notes:**
+
+- Prorated billing applied immediately (always_invoice)
+- If no subscriptionId provided, redirects to Stripe Checkout
+
+---
+
 ## Third-Party Integrations
 
 ### Stripe
