@@ -1,154 +1,158 @@
-# Claude Code V7.7
+# Billing Dashboard
 
-**From Coding Assistant to Production App Builder**
-
-Claude Code V7.7 transforms from a coding assistant into a production app builder by adding domain expertise, progressive documentation, and minimal subagents.
-
-## What's New in V7.7
-
-### Domain Skills (11 NEW)
-
-Skills provide domain expertise without agent overhead (~500 tokens vs ~15x for agents):
-
-| Skill | Purpose | Auto-generates |
-|-------|---------|----------------|
-| `ui-design` | Visual design, design systems | DESIGN-SYSTEM.md |
-| `frontend` | React, state management | - |
-| `backend` | APIs, business logic | docs/API-CONTRACTS.md |
-| `database` | Schema, queries, Supabase | docs/DATA-MODELS.md |
-| `testing` | Jest, Playwright, E2E | - |
-| `performance` | Core Web Vitals, optimization | - |
-| `accessibility` | WCAG compliance | - |
-| `devops` | CI/CD, deployment | docs/DEPLOYMENT.md, RUNBOOK.md, MONITORING.md |
-| `integration` | Stripe, Auth0, third-party | Appends to API-CONTRACTS.md |
-| `mobile` | React Native, Expo | - |
-| `documentation` | README, guides | README.md |
-
-### New Agents (2)
-
-| Agent | Purpose |
-|-------|---------|
-| `initializer` | Project setup (Anthropic two-agent pattern) |
-| `researcher` | External API verification with web access |
-
-### Enhanced Agents (2)
-
-- **explorer** - Now returns structured output, max 2000 tokens
-- **reviewer** - Now checks if documentation was updated
-
-### New Command
-
-- `/launch` - Production readiness checklist
-
-### Document Templates (10)
-
-Pre-built templates ensure consistent documentation:
-- ARCHITECTURE.template.md
-- DESIGN-SYSTEM.template.md
-- API-CONTRACTS.template.md
-- DATA-MODELS.template.md
-- AUTH-FLOWS.template.md
-- DEPLOYMENT.template.md
-- RUNBOOK.template.md
-- MONITORING.template.md
-- SECURITY.template.md
-- PRODUCTION-CHECKLIST.template.md
+> A SaaS billing dashboard built with Next.js, Stripe, and React Native companion app.
 
 ## Quick Start
 
-1. Copy `.claude/` folder to your project root
-2. Copy `CLAUDE.md` to your project root
-3. Start coding: `/build "add user authentication"`
+```bash
+# Clone the repository
+git clone https://github.com/example/billing-dashboard.git
+cd billing-dashboard
 
-## Architecture
+# Install dependencies
+npm install
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                   MAIN AGENT (Coding Agent)                     │
-│                                                                 │
-│  - Receives user commands (/build, /fix, /quick, /launch)       │
-│  - Loads skills on-demand (20 skills)                           │
-│  - Follows Iron Laws (TDD, Verification, Debugging)             │
-│  - Skills auto-generate documentation as they work              │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-          │              │              │              │
-          ▼              ▼              ▼              ▼
-    ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐
-    │initializer│  │ explorer │  │ reviewer │  │researcher│
-    │           │  │          │  │          │  │          │
-    │ Project   │  │ Read-only│  │ Code     │  │ API/docs │
-    │ setup     │  │ explore  │  │ review   │  │ verify   │
-    └──────────┘  └──────────┘  └──────────┘  └──────────┘
+# Copy environment variables
+cp .env.example .env.local
+
+# Run development server
+npm run dev
+
+# Open http://localhost:3000
 ```
 
-## Key Decisions
+## Tech Stack
 
-### Skills > Agents for Domain Expertise
+| Layer         | Technology              |
+| ------------- | ----------------------- |
+| **Framework** | Next.js 14 (App Router) |
+| **Language**  | TypeScript              |
+| **Styling**   | Tailwind CSS            |
+| **Payments**  | Stripe                  |
+| **Analytics** | Plausible               |
+| **Testing**   | Jest + Playwright       |
+| **Mobile**    | React Native + Expo     |
 
-Each subagent spawns with a fresh 200K context window, adding ~15x token overhead. Skills load into the main context (~500 tokens each) and share context with the workflow.
-
-### Progressive Documentation
-
-Documents aren't generated upfront. Skills append to docs as they work:
-- Create API endpoint → Append to API-CONTRACTS.md
-- Create UI component → Append to DESIGN-SYSTEM.md
-- Create table → Append to DATA-MODELS.md
-
-### Four Agents Only
-
-1. **initializer** - Project setup
-2. **explorer** - Read-only codebase investigation  
-3. **reviewer** - Code review before commit
-4. **researcher** - External API verification
-
-## Version History
-
-| Version | Key Changes |
-|---------|-------------|
-| V7.7 | Domain skills, progressive docs, 4 agents, /launch |
-| V7.6 | Skills-based, softer guidance, 9/10 stress test |
-| V7.4 | Iron Laws, rationalization tables |
-| V7.0 | Skills architecture |
-
-## Files
+## Project Structure
 
 ```
-project/
-├── CLAUDE.md                     # Project instructions
-├── ARCHITECTURE.md               # Generated on first /build
-├── DESIGN-SYSTEM.md              # Generated by ui-design skill
-├── SCRATCHPAD.md                 # Session continuity
-├── .tasks                        # Task queue
-├── .log                          # Execution history
-│
-├── docs/
-│   ├── API-CONTRACTS.md          # Generated by backend skill
-│   ├── DATA-MODELS.md            # Generated by database skill
-│   ├── AUTH-FLOWS.md             # Generated by security skill
-│   ├── DEPLOYMENT.md             # Generated by devops skill
-│   ├── RUNBOOK.md                # Generated by devops skill
-│   ├── MONITORING.md             # Generated by devops skill
-│   └── PRODUCTION-CHECKLIST.md   # Generated by /launch
-│
-└── .claude/
-    ├── settings.json             # Hook configuration
-    ├── skills/                   # 20 skills
-    ├── agents/                   # 4 agents
-    ├── commands/                 # 8 commands
-    ├── templates/                # 10 doc templates
-    ├── hooks/                    # 6 hooks
-    └── state/                    # Workflow state
+billing-dashboard/
+├── src/
+│   ├── app/           # Next.js App Router pages
+│   ├── components/    # React components
+│   │   ├── BillingOverview.tsx
+│   │   ├── Dashboard.tsx
+│   │   ├── UpgradePage.tsx
+│   │   └── UsageMetrics.tsx
+│   ├── lib/           # Utilities
+│   │   ├── plans.ts   # Plan data and helpers
+│   │   └── subscription.ts
+│   ├── hooks/         # Custom React hooks
+│   └── types/         # TypeScript types
+├── tests/             # Jest unit tests
+├── e2e/               # Playwright E2E tests
+├── mobile/            # React Native companion app
+├── docs/              # Documentation
+│   ├── DEPLOYMENT.md
+│   ├── RUNBOOK.md
+│   └── MONITORING.md
+└── .github/workflows/ # CI/CD
 ```
 
-## Iron Laws (Preserved)
+## Environment Variables
 
+| Variable                 | Required | Description                   |
+| ------------------------ | -------- | ----------------------------- |
+| `DATABASE_URL`           | Yes      | PostgreSQL connection string  |
+| `NEXTAUTH_SECRET`        | Yes      | Auth encryption key           |
+| `NEXTAUTH_URL`           | Yes      | App base URL                  |
+| `STRIPE_SECRET_KEY`      | Yes      | Stripe secret key             |
+| `STRIPE_PUBLISHABLE_KEY` | Yes      | Stripe publishable key        |
+| `STRIPE_WEBHOOK_SECRET`  | Yes      | Stripe webhook signing secret |
+| `PLAUSIBLE_DOMAIN`       | No       | Plausible analytics domain    |
+
+## Available Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Production build
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm test             # Run unit tests
+npm run test:e2e     # Run Playwright E2E tests
+npm run test:e2e:ui  # Run Playwright with UI
 ```
-1. NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
-2. NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
-3. NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
+
+## Features
+
+### Billing Dashboard
+
+- View current subscription plan
+- Display usage metrics (API calls, storage, team members)
+- Upgrade/downgrade plans
+- Access Stripe Customer Portal
+
+### Usage Analytics
+
+- Real-time usage tracking
+- Progress bars with limit warnings
+- Color-coded status (green/yellow/red)
+
+### Mobile App
+
+- React Native companion app
+- View plan details on the go
+- Same features as web dashboard
+
+## Testing
+
+### Unit Tests (Jest)
+
+```bash
+npm test
 ```
+
+### E2E Tests (Playwright)
+
+```bash
+npm run test:e2e
+```
+
+### Test Coverage Targets
+
+- Unit tests: 80%+ coverage
+- E2E tests: Critical user journeys
+
+## Deployment
+
+See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for complete deployment guide.
+
+Quick deploy to Vercel:
+
+```bash
+vercel --prod
+```
+
+## Documentation
+
+| Document                             | Description           |
+| ------------------------------------ | --------------------- |
+| [DESIGN-SYSTEM.md](DESIGN-SYSTEM.md) | Component library     |
+| [DEPLOYMENT.md](docs/DEPLOYMENT.md)  | Deployment procedures |
+| [RUNBOOK.md](docs/RUNBOOK.md)        | Incident response     |
+| [MONITORING.md](docs/MONITORING.md)  | Metrics and alerts    |
+
+## Contributing
+
+1. Create a feature branch
+2. Write tests first (TDD)
+3. Submit PR for review
+4. CI must pass before merge
 
 ## License
 
 MIT
+
+---
+
+_Built with Claude Code V7.7_
