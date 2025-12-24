@@ -2,13 +2,13 @@
 
 ## Format
 # [ ] Not started
-# [~] In progress  
+# [~] In progress
 # [x] Done (YYYY-MM-DD)
 # [!] Stuck - needs help
 # [REVIEW] tag = Claude stops for approval
 
 ## Tasks
 
-[ ] First feature to build
-[ ] Second feature
-[ ] Payment integration [REVIEW]
+[x] Add aria-label to upgrade button in UpgradePage (2024-12-23)
+[x] Add TypeScript strict null check to tsconfig (2024-12-23)
+[x] Update package.json description (2024-12-23)

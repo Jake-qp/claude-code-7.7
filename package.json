@@ -1,6 +1,7 @@
 {
   "name": "billing-dashboard",
   "version": "1.0.0",
+  "description": "SaaS billing dashboard with Stripe integration, usage tracking, and React Native companion app",
   "private": true,
   "scripts": {
     "dev": "next dev",

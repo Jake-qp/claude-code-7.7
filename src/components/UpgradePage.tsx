@@ -61,6 +61,11 @@ export function UpgradePage({ userId }: UpgradePageProps) {
             <button
               disabled={plan.id === currentPlanId}
               onClick={() => console.log(`Upgrade to ${plan.id}`)}
+              aria-label={
+                plan.id === currentPlanId
+                  ? `${plan.name} is your current plan`
+                  : `Upgrade to ${plan.name} plan for $${plan.price} per month`
+              }
             >
               {plan.id === currentPlanId ? "Current Plan" : "Select Plan"}
             </button>
