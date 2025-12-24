@@ -28,6 +28,16 @@ export function BillingOverview({
         <button onClick={onUpgrade} className="upgrade-button">
           Upgrade Plan
         </button>
+        <p className="last-updated">
+          Last updated:{" "}
+          {new Date().toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </p>
       </div>
     </div>
   );
