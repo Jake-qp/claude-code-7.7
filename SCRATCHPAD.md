@@ -48,4 +48,73 @@ This file tracks the current session state, API verifications, and investigation
 
 ## Implementation Plans
 
-(To be documented during Test 4)
+### Usage Analytics Feature
+
+**Scope:** Dashboard card showing API calls, storage, team members with progress bars
+**Designed:** UsageMetrics.tsx with all states (Loading, Empty, Error, Success)
+**Started:** 2024-12-23
+
+```
+Task 1 → Task 2 → Task 5
+             ↓
+Task 3 → Task 4 → Task 5
+```
+
+---
+
+### Task 1: Create usage metrics API types (~5 min)
+
+**Files:** src/types/billing.ts, src/lib/usage.ts
+**Do:** Add UsageMetricsResponse type and mock fetch function
+**Verify:** Types compile without errors
+**Depends on:** Nothing
+
+---
+
+### Task 2: Write tests for usage metrics hook (~10 min)
+
+**Files:** tests/use-usage-metrics.test.ts
+**Do:** Test useUsageMetrics hook returns loading, error, success states
+**Verify:** Tests fail (hook not implemented yet)
+**Depends on:** Task 1
+
+---
+
+### Task 3: Implement useUsageMetrics hook (~10 min)
+
+**Files:** src/hooks/useUsageMetrics.ts
+**Do:** Create hook that fetches usage data with loading/error states
+**Verify:** Task 2 tests pass
+**Depends on:** Task 2
+
+---
+
+### Task 4: Connect UsageMetrics component to hook (~10 min)
+
+**Files:** src/components/UsageMetrics.tsx
+**Do:** Replace mock data with useUsageMetrics hook
+**Verify:** Component fetches real data (mock API)
+**Depends on:** Task 3
+
+---
+
+### Task 5: Integrate into Dashboard (~5 min)
+
+**Files:** src/components/Dashboard.tsx
+**Do:** Add UsageMetricsCard to dashboard layout
+**Verify:** Card appears on dashboard with live data
+**Depends on:** Task 4
+
+---
+
+### Task 6: Add Plausible event tracking (~10 min)
+
+**Files:** src/lib/analytics.ts, src/components/Dashboard.tsx
+**Do:** Track "View Usage Metrics" event when card loads
+**Verify:** Event appears in browser console (dev mode)
+**Depends on:** Task 5
+
+---
+
+**Total estimated time:** ~50 min (6 tasks)
+**Critical path:** Task 1 → 2 → 3 → 4 → 5 → 6
