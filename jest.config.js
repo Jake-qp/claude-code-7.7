@@ -1,5 +1,11 @@
 module.exports = {
-  testPathIgnorePatterns: ["/node_modules/", "/dist/", "/build/", "/.next/"],
+  testPathIgnorePatterns: [
+    "/node_modules/",
+    "/dist/",
+    "/build/",
+    "/.next/",
+    "/e2e/",
+  ],
   testEnvironment: "jsdom",
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
